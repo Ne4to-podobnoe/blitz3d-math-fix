@@ -1,16 +1,25 @@
-; BIN FUNCTION FIX ;
+; FUNCTIONS FIX ;
 ; by Ne4to ;
-; This binary function slower than usual function, but accurate. ;
-Function Bin$(number%, calc = 2)
+; This functions slower than usual functions, but accurate. ;
+Function Bin$(number%) ;32 bit max number
 	Local returnstring$, retmod
 	While number > 0
-		retmod = number Mod calc
-		number = number / calc
+		retmod = number Mod 2
+		number = number / 2
 		returnstring = returnstring + Str(retmod)
 	Wend
 	Return ReverseString(returnstring)
 End Function
-Function BinToDec(s$) ;string because the % won't fit
+Function Oct(number%) ; 295600127 max number for Octal
+	Local returnstring$, retmod
+	While number > 0
+		retmod = number Mod 8
+		number = number / 8
+		returnstring = returnstring + Str(retmod)
+	Wend
+	Return ReverseString(returnstring)
+End Function
+Function BinToDec(s$)
 	Local returnint
     For i = 0 to Len(s)-1
        if Mid(s,i+1,1) = "1" Then
@@ -18,7 +27,17 @@ Function BinToDec(s$) ;string because the % won't fit
 			returnint = returnint + 2^int2
        EndIf
     Next
-    return returnint+1
+    Return returnint
+End Function
+Function OctToDec(in)
+	Local returnint, retmod
+	While in > 0
+		retmod = in Mod 10
+		in = in / 10
+		returnint = returnint + retmod * 8^i
+		i = i + 1
+	Wend
+	Return returnint
 End Function
 Function ReverseString$(s$)
 	Local returnstring$
